@@ -1,5 +1,10 @@
 FROM ubuntu:14.04
 
+COPY ./src/client /src/client
+COPY ./src/e2e /src/e2e
+COPY ["./src/bower.json", "./src/package.json", "./src/local.env.json", "./src/package.json", "./src/protractor.conf.js", "./src/Gruntfile.js", "./src/.jsbeautifyrc", "./src/.bowerrc", "/src/"]
+WORKDIR /src
+
 RUN apt-get update && apt-get install -y \
       curl \
       build-essential \
@@ -10,25 +15,8 @@ RUN apt-get update && apt-get install -y \
       rubygems-integration
 
 RUN gem install sass compass
-RUN npm install -g bower grunt-cli
+RUN npm install -g bower grunt-cli && npm install && bower install --allow-root
 
-ADD ./src/client /src/client
-ADD ./src/e2e /src/e2e
-ADD ./src/bower.json /src
-ADD ./src/package.json /src
-ADD ./src/local.env.json /src
-ADD ./src/package.json /src
-ADD ./src/protractor.conf.js /src
-ADD ./src/Gruntfile.js /src
-ADD ./src/.jsbeautifyrc /src
-ADD ./src/.bowerrc /src
-
-WORKDIR /src
-
-RUN npm install
-RUN bower install --allow-root
-
-EXPOSE 9000
-EXPOSE 35729
+EXPOSE 9000 35729
 
 CMD ["grunt", "serve"]
