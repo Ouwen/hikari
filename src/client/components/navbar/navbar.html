@@ -1,0 +1,20 @@
+<md-toolbar aria-label="Navbar">
+  <div class="md-toolbar-tools">
+    <md-button aria-label="Navbar Sidebar" class="md-icon-button" ng-click="$mdSidenav('sidebar').toggle()">
+      <md-icon md-font-library="material-icons">menu</md-icon>
+    </md-button>
+    <h1 aria-label="Navbar Home" class="md-title md-button" ui-sref="main">{{title}}</h1>
+    <span flex></span>
+    <ng-transclude>
+      <md-button hide show-gt-xs ui-sref="signup" ng-hide="Auth.global.currentUser.email" aria-label="Navbar Signup">
+        Signup
+      </md-button>
+      <md-button hide show-gt-xs ui-sref="login" ng-hide="Auth.global.currentUser.email" aria-label="Navbar Login">
+        Login
+      </md-button>
+      <md-button hide show-gt-xs ng-click="Auth.logout()" ng-show="Auth.global.currentUser.email" aria-label="Navbar Logout">
+        Logout
+      </md-button>
+    </ng-transclude>
+  </div>
+</md-toolbar>

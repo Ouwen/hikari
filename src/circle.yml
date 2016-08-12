@@ -1,0 +1,33 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - sudo apt-get install -y curl
+    - curl -sL https://deb.nodesource.com/setup | sudo bash -
+    - sudo apt-get install -y build-essential git nodejs
+    - npm -g install npm@2.1.5
+    - npm install -g bower grunt-cli
+    - gem install sass
+    - gem install compass
+    - npm install
+    - bower install
+
+test:
+  override:
+    - npm run update-webdriver
+    - grunt test
+    - grunt build
+
+deployment:
+  cloudfront:
+    branch: master
+    commands:
+      - grunt build
+      - sudo pip install awscli
+      - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+      - aws configure set aws_access_key_id $AWS_SECRET_ACCESS_KEY
+      - aws configure set default.region us-east-1
+      - aws configure set default.output json
+      - aws s3 sync dist s3://$AWS_BUCKET --delete --acl public-read

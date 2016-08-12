@@ -1,0 +1,17 @@
+@import "compass/css3";
+.logo {
+  max-width: 600px;
+  width: 80%;
+  margin: 20px;
+}
+.hikari-button-main {
+  min-width: 150px;
+}
+img.cover {
+  @include filter(brightness(60%));
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+}

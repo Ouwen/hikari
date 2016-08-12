@@ -1,0 +1,16 @@
+<div layout="column" layout-fill>
+  <nav-bar title="FAQ" flex="initial"></nav-bar>
+  <md-content flex>
+    <section ng-repeat="issue in contents">
+      <md-subheader aria-label="Issue Header" class="md-accent">{{issue.type}}</md-subheader>
+      <md-list layout="column" layout-padding>
+        <md-list-item aria-label="Issue Card" class="md-4-line" ng-repeat="qa in issue.qas">
+          <div class="md-list-item-text">
+            <h3>{{qa.question}}</h3>
+            <p>{{qa.answer}}</p>
+          </div>
+        </md-list-item>
+      </md-list>
+    </section>
+  </md-content>
+</div>

@@ -1,0 +1,53 @@
+<div layout="column" layout-fill>
+  <img class="cover" src="../../assets/images/background.jpg"></img>
+  <nav-bar flex="initial"></nav-bar>
+  <md-progress-linear ng-hide="!busy"></md-progress-linear>
+  <md-content flex layout="row" layout-align="center start" layout-align-gt-xs="center center" class="unselectable transparent-background">
+    <md-card flex="grow" flex-sm="80" flex-gt-sm="40" flex-gt-lg="30" aria-label="Signup Card">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Sign Up</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <form layout="column" name="form" ng-submit="register(form)" novalidate>
+          <md-input-container>
+            <label>Name</label>
+            <input type="text" name="name" ng-model="user.name" required/>
+            <div aria-label="Signup Name Error Message" ng-messages="form.name.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <label>Email</label>
+            <input type="email" name="email" ng-model="user.email" required server-error/>
+            <div aria-label="Signup Email Error Message" ng-messages="form.email.$error">
+              <div ng-message="email">Doesn't look like a valid email.</div>
+              <div ng-message="required">This is required.</div>
+              <div ng-message="server">{{ errors.email }}</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <label>Password</label>
+            <input type="password" name="password" ng-model="user.password" ng-minlength="8" server-error required/>
+            <div aria-label="Signup Password Error Message" ng-messages="form.password.$error">
+              <div ng-message="minlength">Password must be at least 8 characters.</div>
+              <div ng-message="required">This is required.</div>
+              <div ng-message="server">{{ errors.password }}</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <label>Confirm Password</label>
+            <input type="password" name="confirmPassword" ng-model="user.confirmPassword" ng-pattern="user.password" required/>
+            <div aria-label="Signup Confirm Password Error Message" ng-messages="form.confirmPassword.$error">
+              <div ng-message="pattern">Password does not match.</div>
+            </div>
+          </md-input-container>
+          <md-card-actions layout="row" layout-align="end end">
+            <md-button type="submit" aria-label="Signup Submit" class="md-raised md-primary">Sign Up</md-button>
+          </md-card-actions>
+        </form>
+      </md-card-content>
+    </md-card>
+  </md-content>
+</div>

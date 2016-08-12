@@ -1,0 +1,45 @@
+<md-sidenav aria-label="Sidebar" layout="column" md-component-id="sidebar" class="md-sidenav-left md-whiteframe-z2 unselectable">
+  <md-toolbar class="md-accent md-tall">
+    <h1 class="md-title">
+      <span>{{ENV.label.name.toUpperCase()}}</span>
+    </h1>
+    <span flex></span>
+    <div class="md-body-2">{{Auth.global.currentUser.name}}</div>
+    <div class="md-body-1">{{Auth.global.currentUser.email}}</div>
+  </md-toolbar>
+  <md-list>
+    <md-subheader class="md-no-sticky">Navigation</md-subheader>
+    <md-list-item ng-hide="Auth.global.currentUser.email" ng-class="{'hikari-list-active': $state.includes('main')}" ng-disabled="$state.includes('main')" ng-click="$state.includes('main') ? null: toggle()" ui-sref="main" aria-label="Sidebar Home">
+      <md-icon md-font-library="material-icons">home</md-icon>
+      <p>Home</p>
+    </md-list-item>
+    <md-divider></md-divider>
+    <md-subheader class="md-no-sticky">Management</md-subheader>
+    <md-list-item ng-class="{'hikari-list-active': $state.includes('settings.account')}" ng-disabled="$state.includes('settings.account')" ng-click="$state.includes('settings.account') || toggle()" ng-show="Auth.global.currentUser.email" aria-label="Sidebar Account Settings" ui-sref="settings.account">
+      <md-icon md-font-library="material-icons">settings</md-icon>
+      <p>Account
+        <span hide show-gt-xs>Settings
+          <span>
+      </p>
+    </md-list-item>
+    <md-list-item ng-class="{'hikari-list-active': $state.includes('help')}" ng-click="$state.includes('help') ? null: toggle()" ng-disabled="$state.includes('help')" ng-click="" aria-label="Sidebar Help" ui-sref="help">
+      <md-icon md-font-library="material-icons">help</md-icon>
+      <p>Help
+        <span hide show-gt-xs>& feedback
+          <span>
+      </p>
+    </md-list-item>
+    <md-list-item ng-class="{'hikari-list-active': $state.includes('signup')}" ng-disabled="$state.includes('signup')" ng-click="$state.includes('signup') ? null: toggle()" ui-sref="signup" ng-hide="Auth.global.currentUser.email" aria-label="Sidebar Signup">
+      <md-icon md-font-library="material-icons">person_add</md-icon>
+      <p>Signup</p>
+    </md-list-item>
+    <md-list-item ng-class="{'hikari-list-active': $state.includes('login')}" ng-disabled="$state.includes('login')" ng-click="$state.includes('login') ? null: toggle()" ui-sref="login" ng-hide="Auth.global.currentUser.email" aria-label="Sidebar Login">
+      <md-icon md-font-library="material-icons">account_circle</md-icon>
+      <p>Login</p>
+    </md-list-item>
+    <md-list-item ng-click="Auth.logout(); toggle();" ng-show="Auth.global.currentUser.email" aria-label="Sidebar Logout">
+      <md-icon md-font-library="material-icons">exit_to_app</md-icon>
+      <p>Logout</p>
+    </md-list-item>
+  </md-list>
+</md-sidenav>

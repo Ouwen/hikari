@@ -1,0 +1,20 @@
+md-sidenav {
+  &> md-toolbar {
+    padding: 15px;
+  }
+  & md-list-item.md-2-line .md-list-item-text {
+    padding-top: 14px;
+    padding-bottom: 12px;
+  }
+  & md-divider {
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+}
+.hikari-list-active {
+  background-color: $default-background;
+  color: $default-accent;
+  md-icon {
+    color: $default-accent;
+  }
+}

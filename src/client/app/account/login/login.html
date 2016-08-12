@@ -1,0 +1,38 @@
+<div layout="column" layout-fill>
+  <img class="cover" src="../../assets/images/background.jpg"></img>
+  <nav-bar flex="initial"></nav-bar>
+  <md-progress-linear ng-hide="!busy"></md-progress-linear>
+  <md-content flex layout="row" layout-align="center start" layout-align-gt-xs="center center" class="unselectable transparent-background">
+    <md-card flex="grow" flex-sm="80" flex-gt-sm="40" flex-gt-lg="30" aria-label="Login Card">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Login</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <form layout="column" name="form" ng-submit="login(form)" novalidate>
+          <md-input-container>
+            <label>Email</label>
+            <input type="email" name="email" ng-model="user.email" required>
+            <div ng-messages="submitted && form.email.$error" aria-label="Login Email Error">
+              <div ng-message="required" aria-label="Login Email Required">This is required.</div>
+              <div ng-message="email" aria-label="Login Email Invalid">Please enter a valid email.</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <label>Password</label>
+            <input type="password" name="password" ng-model="user.password" required server-error>
+            <div ng-messages="submitted && form.password.$error" aria-label="Login Password Error">
+              <div ng-message="required" aria-label="Login Password Required">This is required.</div>
+              <div ng-message="server" aria-label="Login Password Invalid">{{errors.message}}</div>
+            </div>
+          </md-input-container>
+          <div layout="row" layout-align="end end">
+            <md-button aria-label="Forgot Password" ui-sref="password.forgot" class="md-button">Forgot?</md-button>
+            <md-button aria-label="Login Submit" type="submit" class="md-primary md-raised">Login</md-button>
+          </div>
+        </form>
+      </md-card-content>
+    </md-card>
+  </md-content>
+</div>
