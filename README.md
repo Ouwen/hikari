@@ -5,6 +5,7 @@ This is the client of Hikari. It is a pure angular application. Hikari is a ligh
 - [Installation](#installation)
 - [Deployment](#deployment)
 - [Tests](#tests)
+- [Docker](#docker)
 
 ## Installation
 1) Install Node. The dev environment requires a Node to be installed.
@@ -46,3 +47,7 @@ Will test and run a production environment locally on localhost:8080
 
 ## Tests
 When creating a new view be sure to make an e2e test of the page. This will run a chrome browser for an end-to-end test.
+
+## Docker
+If you would like to dev without the need of installing deps, install docker and start the `./run.sh` script.
+(TODO) Currently grunt test and grunt build do not work in the docker version see github issues for more details.
