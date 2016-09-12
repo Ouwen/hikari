@@ -1,0 +1,20 @@
+# Grunt generated files
+client/app/app.css*
+client/components/config.js
+
+# local configurations need to be manually copied
+local.env.json
+
+# OS generated files
+.DS_Store
+.DS_Store?
+
+# vendor assets
+bower_components/
+node_modules/
+
+# Build files
+client/js/bundle.js*
+dist/
+.tmp/
+.sass-cache/
