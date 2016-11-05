@@ -11,12 +11,10 @@ CREATE TABLE IF NOT EXISTS users (
         CONSTRAINT valid_email CHECK ((email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$') AND
                                       (email = lower(email))),
     hashed_password varchar(128) NOT NULL,
-    email_notification boolean NOT NULL DEFAULT true,
-    preferences jsonb NOT NULL DEFAULT '{
-      "email_notification": true
-    }',
-        CONSTRAINT exists__email_notification CHECK ((preferences->>'email_notification') IS NOT NULL)
-);
+    salt varchar(128) NOT NULL,
+    role varchar(128) NOT NULL DEFAULT 'user',
+        CONSTRAINT valid_role CHECK (role = ANY (ARRAY['user', 'admin']))
+  );
 
 CREATE TABLE IF NOT EXISTS users_reset_password (
     user_uuid uuid REFERENCES users(uuid) ON DELETE CASCADE,
