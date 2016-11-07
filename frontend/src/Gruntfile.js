@@ -474,7 +474,7 @@ module.exports = function (grunt) {
       },
       dist: {
         options: {
-          port: 8080,
+          port: 8081,
           open: true,
           base: '<%= yeoman.dist %>'
         }
