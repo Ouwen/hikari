@@ -2,18 +2,11 @@
 
 angular.module('hikariApp')
   .factory('User', function ($resource, ENV) {
-    return $resource(ENV.hosts.core + '/users/:id/:controller', {
+    return $resource(ENV.hosts.core + '/api/users/:id', {
       id: '@_id'
     }, {
-      changePassword: {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        params: {
-          id: 'me',
-          controller: 'password'
-        }
+      save: {
+        method: 'POST'
       },
       get: {
         method: 'GET',

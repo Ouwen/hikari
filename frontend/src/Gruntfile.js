@@ -447,7 +447,7 @@ module.exports = function (grunt) {
     connect: {
       options: {
         port: 9000,
-        hostname: '0.0.0.0',
+        hostname: 'localhost',
         livereload: 35729,
         base: '<%= yeoman.client %>'
       },

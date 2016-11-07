@@ -9,6 +9,7 @@ describe('Sidebar directive', function () {
   var login = new Login();
   var navbar = new Navbar();
   var baseUrl = browser.baseUrl;
+  var EC = protractor.ExpectedConditions;
 
   browser.driver.manage().window().setSize(1920, 1080);
   browser.get('/');
@@ -37,7 +38,7 @@ describe('Sidebar directive', function () {
     expect(browser.getCurrentUrl()).toBe(baseUrl + '/#/help');
   });
 
-  it('should properly update when logged in', function () {
+  fit('should properly update when logged in', function () {
     browser.get('/#/login');
     login.login();
 
@@ -48,10 +49,8 @@ describe('Sidebar directive', function () {
 
     expect(sidebar.signup.isDisplayed()).toBe(false);
     expect(sidebar.login.isDisplayed()).toBe(false);
-    navbar.backdrop.click();
-
-    navbar.sidebar_toggle.click();
     sidebar.account_settings.click();
+
     expect(browser.getCurrentUrl()).toBe(baseUrl + '/#/settings/account');
   });
 

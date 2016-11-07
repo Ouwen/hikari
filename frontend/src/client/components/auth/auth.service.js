@@ -16,7 +16,7 @@ angular.module('hikariApp')
 
         var req = {
           method: 'POST',
-          url: ENV.hosts.core + '/auth',
+          url: ENV.hosts.core + '/auth/local',
           data: {
             email: user.email,
             password: user.password
@@ -54,14 +54,18 @@ angular.module('hikariApp')
         return deferred.promise;
       },
 
+      changePassword: function (newPassword) {
+        return User.update({
+          password: newPassword
+        }).$promise;
+      },
+
       updateUserDetails: function (userInfo) {
         var deferred = $q.defer();
 
-        User.update({}, {
+        User.update({
           name: userInfo.name,
-          email: userInfo.email,
-          email_notification: userInfo.email_notification,
-          preferences: global.currentUser.preferences
+          email: userInfo.email
         }).$promise.then(function (data) {
           global.currentUser = User.get();
           deferred.resolve(data);
@@ -70,30 +74,6 @@ angular.module('hikariApp')
         });
 
         return deferred.promise;
-      },
-
-      updateUserPreferences: function (preferences) {
-        var deferred = $q.defer();
-
-        User.update({}, {
-          name: global.currentUser.name,
-          email: global.currentUser.email,
-          email_notification: global.currentUser.email_notification,
-          preferences: preferences
-        }).$promise.then(function (data) {
-          global.currentUser = User.get();
-          deferred.resolve(data);
-        }, function (err) {
-          deferred.reject(err);
-        });
-
-        return deferred.promise;
-      },
-
-      changePassword: function (newPassword) {
-        return User.changePassword({
-          'new_password': newPassword
-        }).$promise;
       },
 
       getCurrentUser: function () {
