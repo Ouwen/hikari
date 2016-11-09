@@ -1,0 +1,7 @@
+src/node_modules
+src/.tmp
+src/.sass-cache
+src/.idea
+src/client/bower_components
+src/dist
+src/client/components/config.js

@@ -1,28 +1,47 @@
 api:
-  build: ./backend
+  build: ./api
   environment:
-    - POSTGRES_DEVELOPEMENT_URL=postgres://postgres:testtest@db:5432/hikari-test?sslmode=disable
-    - POSTGRES_PRODUCTION_URL=postgres://postgres:testtest@db:5432/hikari-test?sslmode=disable
-    - POSTGRES_TEST_URL=postgres://postgres:testtest@db:5432/hikari-test?sslmode=disable
+    - POSTGRES_DEVELOPEMENT_URL=postgres://postgres:testtest@db_development:5432/hikari?sslmode=disable
+    - POSTGRES_PRODUCTION_URL=postgres://postgres:testtest@db_production:5432/hikari?sslmode=disable
+    - POSTGRES_TEST_URL=postgres://postgres:testtest@db_test:5432/hikari?sslmode=disable
   volumes:
-    - "./backend:/usr/src"
+    - "./api:/usr/src"
   ports:
     - "3000:3000"
   links:
-    - "db"
+    - "db_test"
+    - "db_development"
+    - "db_production"
   command: grunt serve:docker
 
-db:
+db_test:
   image: postgres
   environment:
     - POSTGRES_PASSWORD=testtest
   volumes:
     - "./database/data/test:/var/lib/postgresql/data"
 
+db_development:
+  image: postgres
+  environment:
+    - POSTGRES_PASSWORD=testtest
+  volumes:
+    - "./database/data/development:/var/lib/postgresql/data"
+
+db_production:
+  image: postgres
+  environment:
+    - POSTGRES_PASSWORD=testtest
+  volumes:
+    - "./database/data/production:/var/lib/postgresql/data"
+
 proxy:
-  build: ./proxy
+  image: nginx
   ports:
     - "443:443"
     - "8080:8080"
+  volumes:
+    - "./proxy/nginx.conf:/etc/nginx/nginx.conf"
+    - "./proxy/certificates/:/etc/nginx/ssl"
   links:
     - "api"

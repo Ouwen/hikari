@@ -1,8 +1,1 @@
-frontend/src/node_modules
-frontend/src/.tmp
-frontend/src/.sass-cache
-frontend/src/.idea
-frontend/src/client/bower_components
-frontend/src/dist
-frontend/src/client/components/config.js
 *.DS_Store

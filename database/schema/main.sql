@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS "hikari-test";
-CREATE DATABASE "hikari-test";
-\c "hikari-test"
+DROP DATABASE IF EXISTS "hikari";
+CREATE DATABASE "hikari";
+\c "hikari"
 
 CREATE EXTENSION "uuid-ossp";
 
