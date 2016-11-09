@@ -152,6 +152,7 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>',
           src: [
             'package.json',
+            '.dockerignore',
             'server/**/*'
           ]
         }]
@@ -190,9 +191,13 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('schema', function (){
+
     var done = this.async();
     var pg = require('pg');
-    pg.connect(localConfig.POSTGRES_DEVELOPEMENT_URL, function (err, client, pgDone) {
+    pg.connect( process.env.POSTGRES_DEVELOPEMENT_URL || localConfig.POSTGRES_DEVELOPEMENT_URL, function (err, client, pgDone) {
+      if (err) {
+        console.error(err); return;
+      }
       client.query(`select * from information_schema.columns where table_schema = 'public'`, function (err, result){
          require('fs').writeFileSync('./server/schema.json', JSON.stringify(result.rows, null, 2) , 'utf-8')
          pgDone(); done()
@@ -221,6 +226,15 @@ module.exports = function (grunt) {
       return grunt.task.run(['build', 'env:all', 'env:prod', 'express:prod', 'wait', 'express-keepalive']);
     }
 
+    if (target === 'docker'){
+      return grunt.task.run([
+        'schema',
+        'clean:server',
+        'express:dev',
+        'wait',
+        'watch'
+      ]);
+    }
     if (target === 'debug') {
       return grunt.task.run([
         'schema',

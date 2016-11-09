@@ -1,0 +1,28 @@
+api:
+  build: ./backend
+  environment:
+    - POSTGRES_DEVELOPEMENT_URL=postgres://postgres:testtest@db:5432/hikari-test?sslmode=disable
+    - POSTGRES_PRODUCTION_URL=postgres://postgres:testtest@db:5432/hikari-test?sslmode=disable
+    - POSTGRES_TEST_URL=postgres://postgres:testtest@db:5432/hikari-test?sslmode=disable
+  volumes:
+    - "./backend:/usr/src"
+  ports:
+    - "3000:3000"
+  links:
+    - "db"
+  command: grunt serve:docker
+
+db:
+  image: postgres
+  environment:
+    - POSTGRES_PASSWORD=testtest
+  volumes:
+    - "./database/data/test:/var/lib/postgresql/data"
+
+proxy:
+  build: ./proxy
+  ports:
+    - "443:443"
+    - "8080:8080"
+  links:
+    - "api"
