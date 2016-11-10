@@ -1,13 +1,25 @@
 # Database
 
-In this folder exists all the relations used by the backend.
+## First time setup
+In order to setup the 3 databases, `test`, `development`, and `production`
+run the following command `bash update.sh all`
 
-For development mode, tables are deleted and added an initial seed is run.
+Respond `y` to overriding the production database.
 
-For production mode, data is stored in the folder data-volume, this data image
-should be backed up daily via a cron job that pushes to s3.
+## Updating the schema
+After running docker-compose up. If you want to update the schema you should run the following command.
 
-In later deployment stages, the database should sit on something like RDS. Each database update
-should create a new database, and migrate existing data.
+`docker run -it --rm \
+  -v [PATH/TO/SCHEMA]:/src/schema \
+  -e PGPASSWORD=testtest \
+  --network hikari_default \
+  --link hikari_db_[test|development]_1:postgres postgres \
+  psql -h postgres -U postgres -v schema_directory="/src/schema" -a -f /src/schema/main.sql
+`
 
-For early development we can run the database straight out of docker.
+The [PATH/TO/SCHEMA] is the directory containing the main.sql file you wish to run.
+This can be used to completely override the existing test, development, or production
+databases.
+
+The command `bash update.sh` will refresh the `test` and `development` databases on changes to the schema.
+update.sh requires that docker-compose is running.
