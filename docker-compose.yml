@@ -14,14 +14,14 @@ services:
       - NODE_ENV=development
       - PORT=3000
     volumes:
-      - "./api:/usr/src"
+      - "./api/server:/usr/src/server"
     ports:
       - "3000:3000"
     links:
       - "db_test"
       - "db_development"
       - "db_production"
-    command: grunt serve:docker
+    command: grunt
 
   db_test:
     image: postgres
@@ -29,7 +29,8 @@ services:
       - POSTGRES_PASSWORD=testtest
     volumes:
       - "./database/data/test:/var/lib/postgresql/data"
-      - "./database/schema:/src/schema"
+    ports:
+      - 5400:5432
 
   db_development:
     image: postgres
@@ -38,7 +39,7 @@ services:
     volumes:
       - "./database/data/development:/var/lib/postgresql/data"
     ports:
-      - 5400:5432
+      - 5401:5432
 
   db_production:
     image: postgres
@@ -46,6 +47,8 @@ services:
       - POSTGRES_PASSWORD=testtest
     volumes:
       - "./database/data/production:/var/lib/postgresql/data"
+    ports:
+      - 5402:5432
 
   proxy:
     image: nginx

@@ -23,3 +23,24 @@ databases.
 
 The command `bash update.sh` will refresh the `test` and `development` databases on changes to the schema.
 update.sh requires that docker-compose is running.
+
+## Connecting via pgAdmin or other tool
+
+After running docker compose you can connect to the `test`, `development`, and `production
+databases` by going to the ip address `0.0.0.0:[PORT]`
+
+The default ports as listed below
+| environment | port  |
+|-------------|-------|
+| test        | 5400  |
+| development | 5401  |
+| production  | 5402  |
+
+
+## Running without docker-compose
+`docker run -d -p [YOUR PORT]:5432 \
+  --name test-postgres \
+  -e POSTGRES_PASSWORD=testtest \
+  -v [YOUR DATA]:/var/lib/postgresql/data \
+ postgres
+`

@@ -7,6 +7,4 @@ ENV PUBLIC_KEY_PATH /usr/src/server/keys/key.pub.pem
 ENV PRIVATE_KEY_PATH /usr/src/server/keys/key.pem
 
 RUN npm install -g grunt-cli
-
-# replace this with your application's default port
-EXPOSE 3000
+RUN npm install -f

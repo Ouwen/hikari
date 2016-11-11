@@ -2,7 +2,6 @@ var app = require('../../app');
 var request = require('supertest');
 var should = require('should');
 var db = require('../../db');
-var config = require('../../config/environment');
 var User = require('./user.model');
 var Auth = require('../../auth/auth.service');
 var helper = require('../../test.utility').helper;
@@ -144,11 +143,11 @@ describe('User Model:', function () {
 });
 
 describe('User API:', function () {
-  describe('GET /api/user/me', function () {
+  describe('GET /core/v1.0.0/api/user/me', function () {
     reset();
     it('should get a user', function (done) {
       request(app)
-        .get('/api/users/me')
+        .get('/core/v1.0.0/api/users/me')
         .set('Authorization', saved_user_token)
         .expect(200)
         .end(helper(done, function (err, res) {
@@ -165,7 +164,7 @@ describe('User API:', function () {
     reset();
     it('should save a user', function (done) {
       request(app)
-        .post('/api/users')
+        .post('/core/v1.0.0/api/users')
         .send({
           name: 'New User',
           email: 'new@test.com',
@@ -180,7 +179,7 @@ describe('User API:', function () {
 
     it('should require a name param', function (done) {
       request(app)
-        .post('/api/users')
+        .post('/core/v1.0.0/api/users')
         .send({
           email: 'new@test.com',
           password: 'testtest'
@@ -194,7 +193,7 @@ describe('User API:', function () {
 
     it('should require a password param', function (done) {
       request(app)
-        .post('/api/users')
+        .post('/core/v1.0.0/api/users')
         .send({
           email: 'new@test.com',
           name: 'Test User'
@@ -208,7 +207,7 @@ describe('User API:', function () {
 
     it('should require a valid email param', function (done) {
       request(app)
-        .post('/api/users')
+        .post('/core/v1.0.0/api/users')
         .send({
           name: 'Test User',
           email: 'test.com',
@@ -222,11 +221,11 @@ describe('User API:', function () {
     });
   });
 
-  describe('PUT /api/users/me', function () {
+  describe('PUT /core/v1.0.0/api/users/me', function () {
     reset();
     it('should update a user', function (done) {
       request(app)
-        .put('/api/users/me')
+        .put('/core/v1.0.0/api/users/me')
         .set('Authorization', saved_user_token)
         .send({
           password: 'updated_password',
@@ -246,7 +245,7 @@ describe('User API:', function () {
 
     it('should require a valid email param', function (done) {
       request(app)
-        .put('/api/users/me')
+        .put('/core/v1.0.0/api/users/me')
         .set('Authorization', saved_user_token)
         .send({
           email: 'test.com',
@@ -260,11 +259,11 @@ describe('User API:', function () {
 
   });
 
-  describe('DELETE /api/users/me', function () {
+  describe('DELETE /core/v1.0.0/api/users/me', function () {
     reset();
     it('should delete a user', function (done) {
       request(app)
-        .delete('/api/users/me')
+        .delete('/core/v1.0.0/api/users/me')
         .set('Authorization', saved_user_token)
         .expect(204)
         .end(helper(done, function (err, res) {
@@ -275,11 +274,11 @@ describe('User API:', function () {
 
 });
 
-describe('POST /auth/local', function () {
+describe('POST /core/v1.0.0/auth/local', function () {
   reset();
   it('should login a user', function (done) {
     request(app)
-      .post('/auth/local')
+      .post('/core/v1.0.0/auth/local')
       .send({
         email: 'test@test.com',
         password: 'testtest'
@@ -292,7 +291,7 @@ describe('POST /auth/local', function () {
   });
   it('should not login a user', function (done) {
     request(app)
-      .post('/auth/local')
+      .post('/core/v1.0.0/auth/local')
       .send({
         email: 'test@test.com',
         password: 'wrong'

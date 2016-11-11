@@ -1,4 +1,4 @@
-# Nginx
+# Proxy
 
 This folder contains code necessary for running an nginx proxy via a docker container.
 

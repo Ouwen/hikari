@@ -1,10 +1,17 @@
-// Generated on 2015-09-22 using generator-angular-fullstack 2.0.13
 'use strict';
 
 module.exports = function (grunt) {
   var localConfig;
   try {
     localConfig = require('./server/config/local.env');
+    localConfig.PUBLIC_KEY_PATH = process.env.PUBLIC_KEY_PATH || localConfig.PUBLIC_KEY_PATH;
+    localConfig.PRIVATE_KEY_PATH = process.env.PRIVATE_KEY_PATH || localConfig.PRIVATE_KEY_PATH;
+    localConfig.POSTGRES_DEVELOPEMENT_URL = process.env.POSTGRES_DEVELOPEMENT_URL || localConfig.POSTGRES_DEVELOPEMENT_URL;
+    localConfig.POSTGRES_PRODUCTION_URL = process.env.POSTGRES_PRODUCTION_URL || localConfig.POSTGRES_PRODUCTION_URL;
+    localConfig.POSTGRES_TEST_URL = process.env.POSTGRES_TEST_URL || localConfig.POSTGRES_TEST_URL;
+    localConfig.DATABASE_POOL_SIZE = process.env.DATABASE_POOL_SIZE || localConfig.DATABASE_POOL_SIZE;
+    // Control debug level for modules using visionmedia/debug
+    DEBUG: ''
   } catch(e) {
     localConfig = {};
   }
@@ -194,7 +201,7 @@ module.exports = function (grunt) {
 
     var done = this.async();
     var pg = require('pg');
-    pg.connect( process.env.POSTGRES_DEVELOPEMENT_URL || localConfig.POSTGRES_DEVELOPEMENT_URL, function (err, client, pgDone) {
+    pg.connect(localConfig.POSTGRES_DEVELOPEMENT_URL, function (err, client, pgDone) {
       if (err) {
         console.error(err); return;
       }
@@ -280,6 +287,7 @@ module.exports = function (grunt) {
     'newer:jshint',
     'jsbeautifier:modify',
     'test',
-    'build'
+    'build',
+    'serve'
   ]);
 };

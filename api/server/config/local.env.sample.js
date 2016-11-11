@@ -10,9 +10,9 @@ module.exports = {
   DOMAIN: 'http://localhost:3000',
   PUBLIC_KEY_PATH: '',
   PRIVATE_KEY_PATH: '',
-  POSTGRES_DEVELOPEMENT_URL: '',
-  POSTGRES_PRODUCTION_URL: '',
-  POSTGRES_TEST_URL: '',
+  POSTGRES_DEVELOPEMENT_URL: 'postgres://postgres:testtest@0.0.0.0:5401/hikari-test?sslmode=require',
+  POSTGRES_PRODUCTION_URL: 'postgres://postgres:testtest@0.0.0.0:5402/hikari-test?sslmode=require',
+  POSTGRES_TEST_URL: 'postgres://postgres:testtest@0.0.0.0:5400/hikari-test?sslmode=require',
   DATABASE_POOL_SIZE: 25,
   // Control debug level for modules using visionmedia/debug
   DEBUG: ''
