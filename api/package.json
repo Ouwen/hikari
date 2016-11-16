@@ -1,6 +1,6 @@
 {
   "name": "hikari",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "server/app.js",
   "dependencies": {
     "body-parser": "1.15.2",
