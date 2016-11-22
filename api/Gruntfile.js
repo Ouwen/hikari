@@ -3,7 +3,7 @@
 module.exports = function (grunt) {
   var localConfig;
   try {
-    localConfig = require('./server/config/local.env');
+    localConfig = require('./server/config/local.env.sample');
     localConfig.PUBLIC_KEY_PATH = process.env.PUBLIC_KEY_PATH || localConfig.PUBLIC_KEY_PATH;
     localConfig.PRIVATE_KEY_PATH = process.env.PRIVATE_KEY_PATH || localConfig.PRIVATE_KEY_PATH;
     localConfig.POSTGRES_DEVELOPEMENT_URL = process.env.POSTGRES_DEVELOPEMENT_URL || localConfig.POSTGRES_DEVELOPEMENT_URL;

@@ -16,7 +16,7 @@ services:
     volumes:
       - "./api/server:/usr/src/server"
       - "./api/Gruntfile.js:/usr/src/Gruntfile.js"
-      - "api_node_modules:/usr/src/node_modules"
+      - "/usr/src/node_modules"
     ports:
       - "3000:3000"
     links:
@@ -24,6 +24,20 @@ services:
       - "db_development"
       - "db_production"
     command: grunt
+
+  frontend:
+    build: ./frontend
+    ports:
+      - '9000:9000'
+    volumes:
+      - "./frontend/client:/usr/src/client"
+      - "./frontend/bower.json:/usr/src/bower.json"
+      - "./frontend/local.env.json:/usr/src/local.env.json"
+      - "./frontend/package.json:/usr/src/package.json"
+      - "./frontend/Gruntfile.js:/usr/src/Gruntfile.js"
+      - "./frontend/e2e:/usr/src/e2e"
+      - "/usr/src/node_modules"
+    command: grunt serve
 
   db_test:
     image: postgres
@@ -73,4 +87,3 @@ volumes:
   db_test_volume:
   db_development_volume:
   db_production_volume:
-  api_node_modules:

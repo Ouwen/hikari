@@ -12,6 +12,8 @@ module.exports = function (grunt) {
     ngconstant: 'grunt-ng-constant'
   });
 
+  var compass = require('compass-importer')
+
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
@@ -365,6 +367,9 @@ module.exports = function (grunt) {
 
     // Compiles Sass to CSS
     sass: {
+      options: {
+        importer: compass
+      },
       client: {
         options: {
           loadPath: [
@@ -447,7 +452,7 @@ module.exports = function (grunt) {
     connect: {
       options: {
         port: 9000,
-        hostname: 'localhost',
+        hostname: '0.0.0.0',
         livereload: 35729,
         base: '<%= yeoman.client %>'
       },
